@@ -2,8 +2,8 @@
 import Head from 'next/head'
 
 // Components
-import Header from 'components/Header'
-import Footer from 'components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 // Style
 import layoutStyle from "styles/Layout.module.scss"

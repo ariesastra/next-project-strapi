@@ -2,7 +2,7 @@
 import Link from 'next/link'
 
 // Styles
-import styleFooter from 'styles/Footer.module.scss'
+import styleFooter from '@/styles/Footer.module.scss'
 
 function Footer() {
   return (

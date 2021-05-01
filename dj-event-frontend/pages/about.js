@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 // Components
-import Layout from '../components/Layout'
+import Layout from '@/components/Layout'
 
 // Style
 

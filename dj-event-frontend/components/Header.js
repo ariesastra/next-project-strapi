@@ -4,7 +4,7 @@ import Link from 'next/link'
 // Components
 
 // Styles
-import styleHeader from 'styles/Header.module.scss'
+import styleHeader from '@/styles/Header.module.scss'
 
 function Header() {
   return (

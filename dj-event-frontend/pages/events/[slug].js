@@ -1,7 +1,7 @@
 // Dependecies
 import {useRouter} from 'next/router'
 // Components
-import Layout from 'components/Layout'
+import Layout from '@/components/Layout'
 // Style
 
 function AddEvent() {

@@ -1,7 +1,7 @@
 // Dependencies
 
 // Components
-import Layout from 'components/Layout'
+import Layout from '@/components/Layout'
 
 // Styles
 
