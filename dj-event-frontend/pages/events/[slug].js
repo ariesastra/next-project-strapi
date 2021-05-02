@@ -37,13 +37,13 @@ function AddEvent({evt}) {
           </a>
         </div>
         <span>
-          {evt.date} at {evt.time}
+          {new Date(evt.date).toLocaleDateString('ID')} at {evt.time}
           <h1>{evt.name}</h1>
           {
             evt.image && (
               <div className={styleSingleEvent.image}>
                 <Image
-                  src={evt.image}
+                  src={evt.image.formats.large.url}
                   width={960}
                   height={600}
                 />
@@ -71,7 +71,7 @@ function AddEvent({evt}) {
 export default AddEvent
 
 export async function getStaticPaths(){
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/events`)
   const events = await res.json()
   
   const paths = events.map(evt => ({
@@ -85,7 +85,7 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({params: {slug}}){
-  const res = await fetch(`${API_URL}/api/events/${slug}`)
+  const res = await fetch(`${API_URL}/events?slug=${slug}`)
   const evetns = await res.json()
 
   return{

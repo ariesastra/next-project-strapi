@@ -2,6 +2,7 @@
 import Link from 'next/link'
 
 // Components
+import Search from '@/components/Search'
 
 // Styles
 import styleHeader from '@/styles/Header.module.scss'
@@ -15,6 +16,9 @@ function Header() {
         </Link>
       </div>
 
+      {/* Search Input */}
+      <Search />
+      
       <nav>
         <ul>
           <li>
@@ -22,6 +26,11 @@ function Header() {
               <a>
                 Events
               </a>
+            </Link>
+          </li>
+          <li>
+            <Link href='/events/add'>
+              <a>Add Event</a>
             </Link>
           </li>
         </ul>
