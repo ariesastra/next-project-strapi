@@ -26,6 +26,7 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [React Icon] - An Icon Package for React.
 - [SASS] - Using Sass here.
+- [React-Toastify](https://www.npmjs.com/package/react-toastify) - React-Toastify allows you to add notifications to your app with ease. No more nonsense!.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
