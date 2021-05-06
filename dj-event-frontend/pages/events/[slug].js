@@ -1,4 +1,5 @@
 // Dependecies
+import {ToastContainer, toast} from 'react-toastify'
 import {useRouter} from 'next/router'
 import {API_URL} from '@/config/index'
 import Link from 'next/link'
@@ -9,6 +10,7 @@ import Layout from '@/components/Layout'
 
 // Style
 import styleSingleEvent from '@/styles/Event.module.scss'
+import 'react-toastify/dist/ReactToastify.css';
 
 // Icons
 import {FaPencilAlt, FaTimes} from 'react-icons/fa'
@@ -16,8 +18,24 @@ import {FaPencilAlt, FaTimes} from 'react-icons/fa'
 function AddEvent({evt}) {
   const router = useRouter()
 
-  const deleteEvent = (e) => {
-    console.log('delete');
+  const deleteEvent = async (e) => {
+    if (confirm('Are You Sure ?')) {
+      const res = await fetch(
+        `${API_URL}/events/${evt.id}`, 
+        {
+          method: 'DELETE'
+        }
+      )
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        toast.error(data.message)
+      }
+      else{
+        router.push('/events')
+      }
+    }
   }
 
   return (
@@ -39,6 +57,9 @@ function AddEvent({evt}) {
         <span>
           {new Date(evt.date).toLocaleDateString('ID')} at {evt.time}
           <h1>{evt.name}</h1>
+          {/* Toastify */}
+          <ToastContainer />
+
           {
             evt.image && (
               <div className={styleSingleEvent.image}>
