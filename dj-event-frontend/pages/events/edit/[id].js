@@ -9,6 +9,7 @@ import Image from 'next/image'
 
 //Components
 import Layout from '@/components/Layout'
+import Modal from '@/components/Modal'
 
 // Styles
 import styleForm from '@/styles/Form.module.scss'
@@ -29,6 +30,8 @@ function EditEventsPage({evt}) {
   })
 
   const [imagePreview, setImagePreview] = useState(evt.image ? evt.image.formats.thumbnail.url : null)
+
+  const [showModal, setShowModal] = useState(false)
 
   const router = useRouter()
 
@@ -174,10 +177,21 @@ function EditEventsPage({evt}) {
       }
 
       <div>
-        <button className="btn-secondary">
+        <button 
+          className="btn-secondary"
+          onClick={() => setShowModal(true)}
+        >
           <FaImage /> Set Image
         </button>
       </div>
+
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        title='Image Upload'
+      >
+        Image Upload
+      </Modal>
     </Layout>
   )
 }
