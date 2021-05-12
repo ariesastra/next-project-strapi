@@ -9,12 +9,14 @@ import ReactDOM from 'react-dom'
 import styles from '@/styles/Modal.module.scss'
 
 // Icon
-import FaTimes from 'react-icons/fa'
+import {FaTimes} from 'react-icons/fa'
 
 export default function Modal({show, onClose, children, title}) {
   const [isBrowser, setIsBrowser] = useState(false)
 
-  useEffect(() => setIsBrowser(true))
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
 
   const handleClose = (e) => {
     e.preventDefault()
@@ -40,16 +42,13 @@ export default function Modal({show, onClose, children, title}) {
     </div>
   ) : 
   null
-
   
   if (isBrowser) {
-    console.log(show, onClose, children, title, isBrowser);//debug
-    return (
-      ReactDOM.createPortal(modalContent, document.getElementById('modal-root'))
-    )
+    return ReactDOM.createPortal(
+        modalContent, 
+        document.getElementById("modal-root")
+    );
   } else {
-    return (
-      null
-    )
-  }
+    return null;
+  }    
 }

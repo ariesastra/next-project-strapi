@@ -9,7 +9,8 @@ import Image from 'next/image'
 
 //Components
 import Layout from '@/components/Layout'
-import Modal from '@/components/Modal'
+import MyModal from '@/components/Modal'
+import ImageUpload from '@/components/ImageUpload'
 
 // Styles
 import styleForm from '@/styles/Form.module.scss'
@@ -29,7 +30,7 @@ function EditEventsPage({evt}) {
     description: evt.description,
   })
 
-  const [imagePreview, setImagePreview] = useState(evt.image ? evt.image.formats.thumbnail.url : null)
+  const [imagePreview, setImagePreview] = useState(evt.image ? evt.image.formats.large.url : null)
 
   const [showModal, setShowModal] = useState(false)
 
@@ -66,6 +67,23 @@ function EditEventsPage({evt}) {
   const handleInputChange = (e) => {
     const {name, value} = e.target
     setValues({...values, [name]: value})
+  }
+
+  /*
+    GET THE LATES IMAGE, 
+    SET THE PREVIEW TO NEW UPLOADED IMAGE THUMBNAIL
+    AND MAKE ANOTHER REQUEST.
+  */
+  const imageUploaded = async (e) => {
+    // Get new data from events
+    const res = await fetch(`${API_URL}/events/${evt.id}`)
+    const data = await res.json()
+    
+    // set new image url to image preview
+    setImagePreview(data.image.formats.large.url)
+    
+    // close modal
+    setShowModal(false)
   }
 
   return (
@@ -164,7 +182,7 @@ function EditEventsPage({evt}) {
       {
         imagePreview ? (
           <Image 
-            src={evt.image.formats.large.url}
+            src={imagePreview}
             width={960}
             height={600}
           />
@@ -185,13 +203,16 @@ function EditEventsPage({evt}) {
         </button>
       </div>
 
-      <Modal
+      <MyModal
         show={showModal}
         onClose={() => setShowModal(false)}
         title='Image Upload'
       >
-        Image Upload
-      </Modal>
+        <ImageUpload 
+          evtId={evt.id}
+          imageUploaded={imageUploaded}
+        />
+      </MyModal>
     </Layout>
   )
 }
