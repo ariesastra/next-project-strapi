@@ -22,6 +22,8 @@ function RegisterPage() {
 
   // pull data from authcontext
   const {register, error} = useContext(AuthContext)
+
+  useEffect(() => error && toast.error(error))
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -83,7 +85,7 @@ function RegisterPage() {
             />
           </AuthDiv>
           
-          <input type="submit" value='Login' className='btn' />
+          <input type="submit" value='Register' className='btn' />
         </form>
         <p>
           Already Have an Account ? 
