@@ -18,42 +18,9 @@ import {FaPencilAlt, FaTimes} from 'react-icons/fa'
 function AddEvent({evt}) {
   const router = useRouter()
 
-  const deleteEvent = async (e) => {
-    if (confirm('Are You Sure ?')) {
-      const res = await fetch(
-        `${API_URL}/events/${evt.id}`, 
-        {
-          method: 'DELETE'
-        }
-      )
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        toast.error(data.message)
-      }
-      else{
-        router.push('/events')
-      }
-    }
-  }
-
   return (
     <Layout>
       <div className={styleSingleEvent.event}>
-        <div className={styleSingleEvent.controls}>
-          <Link href={`/events/edit/${evt.id}`}>
-            <a>
-              <FaPencilAlt /> Edit Event
-            </a>
-          </Link>
-          <a href="#" 
-            className={styleSingleEvent.delete}
-            onClick={deleteEvent}
-          >
-            <FaTimes /> Delete Event
-          </a>
-        </div>
         <span>
           {new Date(evt.date).toLocaleDateString('ID')} at {evt.time}
           <h1>{evt.name}</h1>
