@@ -4,6 +4,7 @@ import {useState} from 'react'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
 import {API_URL} from '@/config/index'
+import {parseCookie} from '@/helpers/index'
 
 //Components
 import Layout from '@/components/Layout'
@@ -12,7 +13,7 @@ import Layout from '@/components/Layout'
 import styleForm from '@/styles/Form.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
-function Add() {
+function Add({token}) {
   const [values, setValues] = useState({
     name: '',
     performers: '',
@@ -39,12 +40,17 @@ function Add() {
     const res = await fetch(`${API_URL}/events`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/JSON'
+        'Content-type': 'application/JSON',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(values)
     })
 
     if (!res.ok) {
+      if (res.status === 403 || res.status === 401) {
+        toast.warning('No Token Included !')
+        return
+      }
       toast.error('Somthing Went Wrong !')
     }
     else{
@@ -154,3 +160,13 @@ function Add() {
 }
 
 export default Add
+
+export async function getServerSideProps({req}){
+  const {token} = parseCookie(req)
+
+  return{
+    props: {
+      token
+    }
+  }
+}

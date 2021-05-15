@@ -6,6 +6,7 @@ import Link from 'next/link'
 import {API_URL} from '@/config/index'
 import moment from 'moment'
 import Image from 'next/image'
+import {parseCookie} from '@/helpers/index'
 
 //Components
 import Layout from '@/components/Layout'
@@ -19,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // Icons
 import {FaImage} from 'react-icons/fa'
 
-function EditEventsPage({evt}) {
+function EditEventsPage({evt, token}) {
   const [values, setValues] = useState({
     name: evt.name,
     performers: evt.performers,
@@ -50,12 +51,16 @@ function EditEventsPage({evt}) {
     const res = await fetch(`${API_URL}/events/${evt.id}`, {
       method: 'PUT',
       headers: {
-        'Content-type': 'application/JSON'
+        'Content-type': 'application/JSON',
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(values)
     })
 
     if (!res.ok) {
+      if (res.status === 401 || res.status === 403) {
+        toast.warning('No Authentication !')
+      }
       toast.error('Somthing Went Wrong !')
     }
     else{
@@ -76,7 +81,13 @@ function EditEventsPage({evt}) {
   */
   const imageUploaded = async (e) => {
     // Get new data from events
-    const res = await fetch(`${API_URL}/events/${evt.id}`)
+    const res = await fetch(`${API_URL}/events/${evt.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'Application/JSON',
+        'Authorization': `Bearer ${token}`
+      }
+    })
     const data = await res.json()
     
     // set new image url to image preview
@@ -211,6 +222,7 @@ function EditEventsPage({evt}) {
         <ImageUpload 
           evtId={evt.id}
           imageUploaded={imageUploaded}
+          token={token}
         />
       </MyModal>
     </Layout>
@@ -227,12 +239,12 @@ export async function getServerSideProps({
 }) {
   const res = await fetch(`${API_URL}/events/${id}`)
   const evt = await res.json()
-
-  console.log(req.headers.cookie)
+  const {token} = parseCookie(req)
   
   return {
     props: {
-      evt
+      evt,
+      token
     }
   }
 }

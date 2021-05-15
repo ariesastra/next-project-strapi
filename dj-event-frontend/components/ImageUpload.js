@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 // Icons
 
-function ImageUpload({evtId, imageUploaded}) {
+function ImageUpload({evtId, imageUploaded, token}) {
   const [image, setImage] = useState(null)
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,6 +21,9 @@ function ImageUpload({evtId, imageUploaded}) {
 
     const res = await fetch(`${API_URL}/upload`, {
       method: 'POST',
+      headers:{
+        Authorization: `Bearer ${token}`
+      },
       body: formData
     })
 
