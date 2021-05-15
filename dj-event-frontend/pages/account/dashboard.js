@@ -1,6 +1,6 @@
 // Dependencies
 import {parseCookie} from '@/helpers/index'
-import { API_URL, PER_PAGE } from '@/config/index'
+import { API_URL } from '@/config/index'
 import {useRouter} from 'next/router'
 
 // Components
@@ -13,28 +13,25 @@ import styled from 'styled-components'
 const DashboardPage = ({events, token}) => {
   const router = useRouter()
 
-  const eventDelete = async (id) => {
-    if (confirm('Are You Sure ?')) {
-      const res = await fetch(
-        `${API_URL}/events/${id}`, 
-        {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      )
+  const deleteEvent = async (id) => {
+    if (confirm('Are you sure?')) {
+      const res = await fetch(`${API_URL}/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
       const data = await res.json()
 
       if (!res.ok) {
         toast.error(data.message)
-      }
-      else{
+      } else {
         router.reload()
       }
     }
   }
+  // console.log(events);
   
   return (
     <Layout title='User Dashboard'>
@@ -45,7 +42,7 @@ const DashboardPage = ({events, token}) => {
         {/* Display each events */}
         {
           events.map((evt) => (
-              <DashboardEvent key={evt.id} evt={evt} handleDelete={eventDelete}/>
+              <DashboardEvent key={evt.id} evt={evt} handleDelete={deleteEvent}/>
           ))
         }
       </Dash>
