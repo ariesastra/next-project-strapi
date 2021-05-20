@@ -31,7 +31,6 @@ const DashboardPage = ({events, token}) => {
       }
     }
   }
-  // console.log(events);
   
   return (
     <Layout title='User Dashboard'>
@@ -71,6 +70,8 @@ export async function getServerSideProps({req}){
   }
 }
 
+
+// STYLED COMPONENTS
 const Dash = styled.div`
   h1{
     span{

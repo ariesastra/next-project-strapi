@@ -1,22 +1,20 @@
 // Dependecies
-import {ToastContainer, toast} from 'react-toastify'
-import {useRouter} from 'next/router'
+import {ToastContainer} from 'react-toastify'
 import {API_URL} from '@/config/index'
 import Link from 'next/link'
 import Image from 'next/image'
 
 // Components
 import Layout from '@/components/Layout'
+import EventMap from '@/components/EventMap'
 
 // Style
 import styleSingleEvent from '@/styles/Event.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
 // Icons
-import {FaPencilAlt, FaTimes} from 'react-icons/fa'
 
 function AddEvent({evt}) {
-  const router = useRouter()
 
   return (
     <Layout>
@@ -44,6 +42,9 @@ function AddEvent({evt}) {
           <p>{evt.description}</p>
           <h3>Venue :</h3>
           <p>{evt.address}</p>
+
+          {/* MAP */}
+          <EventMap evt={evt} />
 
           <Link href='/events'>
             <a className={styleSingleEvent.back}>

@@ -7,11 +7,15 @@ export default async (req, res) => {
   if (req.method === 'GET') {
     // If there are no cookie
     if (!req.headers.cookie) {
-      res.status(403).json({message: 'No Authorize !'})
+      res.status(403).json({
+        message: 'No Authorize !'
+      })
       return
     }
 
-    const {token} = cookie.parse(req.headers.cookie)
+    const {
+      token
+    } = cookie.parse(req.headers.cookie)
 
     const strapiRes = await fetch(`${API_URL}/users/me`, {
       method: 'GET',
@@ -23,10 +27,13 @@ export default async (req, res) => {
     const user = await strapiRes.json()
 
     if (strapiRes.ok) {
-      res.status(200).json({user})
-    }
-    else{
-      res.status(403).json({message: 'No Authorization !'})
+      res.status(200).json({
+        user
+      })
+    } else {
+      res.status(403).json({
+        message: 'No Authorization !'
+      })
     }
 
   } else {

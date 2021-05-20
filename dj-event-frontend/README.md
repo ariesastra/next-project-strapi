@@ -27,6 +27,9 @@ To learn more about Next.js, take a look at the following resources:
 - [React Icon] - An Icon Package for React.
 - [SASS] - Using Sass here.
 - [React-Toastify](https://www.npmjs.com/package/react-toastify) - React-Toastify allows you to add notifications to your app with ease. No more nonsense!.
+- [React-Cookie](https://www.npmjs.com/package/react-cookie) - Universal cookies for JavaScript.
+- [React-Map-GL](https://www.npmjs.com/package/react-map-gl) -react-map-gl is a suite of React components designed to provide a React API for Mapbox GL JS-compatible libraries. More information in the online documentation.
+- [React-GeoCode](https://www.npmjs.com/package/react-geocode) - A module to transform a description of a location (i.e. street address, town name, etc.) into geographic coordinates (i.e. latitude and longitude) and vice versa.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
